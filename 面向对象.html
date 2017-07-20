@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			/*面向对象：将相同或者相似的代码归到一类，然后给这一类的原型添加描述。。。。封装函数*/
+			/*
+			 ES6：
+			      对象的key值和value值相同，可以用一个代替   
+			    对象{name:name,age:age}=={name,age}
+			    对象{name:name,say:function(){*****}}=={name,say(){*****}}
+			 * 
+			 * 
+			 * 
+			 * */
+			function classmate(name,age){//构造函数。。。。工厂函数
+//				//原材料
+//				var obj={};
+//				//加工
+//				obj.name=name;
+//				obj.age=age;
+//				obj.say=function(){
+//					alert('同学名字是'+this.name)
+//				}
+//				//出厂
+
+                
+                
+                var obj={
+                	name,
+                	age,
+                	say:function(){
+                		alert('同学名字是'+this.name)
+                	}
+                }
+                
+                return obj
+			}
+			
+			
+			var student=classmate('林高鸿',26);
+			student.say();
+			var students=classmate('赵伟',24);
+			students.say()
+			console.log(students.age)
+			
+			
+			
+			
+		</script>
+	</body>
+</html>
