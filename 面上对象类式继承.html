@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#div1{
+				width:100px;
+				height: 100px;
+				background: red;
+				position: absolute; 
+			}
+			#div2{
+				width:100px;
+				height: 100px;
+				background: yellowgreen;
+				position: absolute;
+				left:200px; 
+			}
+		</style>
+	</head>
+	<body>
+		<div id="div1"></div>
+		<div id="div2"></div>
+		<script>
+			   function Drag(id){
+			   	   this.div=document.getElementById(id)
+			   	   this.disX=0;
+			   	   this.disY=0;
+			   	   
+			   }
+			   
+			   
+			  Drag.prototype.init=function(){
+			  	   var _this=this;
+			  	   this.div.addEventListener('mousedown',function(ev){
+			  	      	_this.down(ev)
+			  	   })
+			  	   
+			  }
+			  
+			  Drag.prototype.down=function(ev){
+			   	     this.disX=ev.clientX-this.div.offsetLeft;
+			   	     this.disY=ev.clientY-this.div.offsetTop;
+			   	     var _this=this;
+			   	     var Move=function(ev){
+			   	     	_this.move(ev)
+			   	     }
+			   	     var Up=function(){
+			   	     	_this.up(Move,Up)
+			   	     }
+			   	     document.addEventListener('mousemove',Move)
+			   	     document.addEventListener('mouseup',Up)
+			   	     ev.preventDefault()
+			   }
+			  Drag.prototype.move=function(ev){
+			  	     this.div.style.left=ev.clientX-this.disX+'px';
+			  	     this.div.style.top=ev.clientY-this.disY+'px';
+			  }
+			  Drag.prototype.up=function(Move,Up){
+			  	     document.removeEventListener('mousemove',Move)
+			  	     document.removeEventListener('mouseup',Up)
+			  }
+			  
+			  //div2.要做一个条件限制
+			  //属性继承
+			  function Drag2(id){
+			  	   Drag.call(this,id)
+			  }
+			  
+			  
+			  //类式方法继承
+									  function mid(){};
+									  
+									  mid.prototype=Drag.prototype;
+									  
+									  var m=new mid();
+									 
+									  Drag2.prototype=m;
+			  
+			  //拷贝方法继承
+								  /*for(var attr in Drag.prototype){
+								  	   Drag2.prototype[attr]=Drag.prototype[attr]
+								  }
+								  */
+			Drag2.prototype.move=function(ev){
+		            this.l=ev.clientX-this.disX;
+					this.t=ev.clientY-this.disY;
+					if(this.l<0){
+						this.l=0
+					  }else if(this.l>(window.innerWidth-this.div.offsetWidth)){
+					  	this.l=window.innerWidth-this.div.offsetWidth
+					  }
+								  	     
+					if(this.t<0){
+						this.t=0
+					   }else if(this.t>(window.innerHeight-this.div.offsetHeight)){
+					  	this.t=window.innerHeight-this.div.offsetHeight
+					  }
+				    this.div.style.left=this.l+'px';
+				    this.div.style.top=this.t+'px';
+								  }
+			  var t=new Drag('div1');
+			  var t2=new Drag2('div2');
+			  console.log(t2)
+			   t.init()
+			   t2.init()
+			 
+		</script>
+	</body>
+</html>
