@@ -12,7 +12,10 @@ jsonp:
 			<div id="box"></div>
 		<input type="text" />
 	</body>
-	<script>
+	<script> 
+	         /*
+		    jsonp同ajax都是获取数据
+		 */
 		  function fn(data){
 		  	   console.log(data)
 		  }
